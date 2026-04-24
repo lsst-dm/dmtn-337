@@ -28,7 +28,7 @@
 \setDocUpstreamLocation{\url{https://github.com/lsst-dm/dmtn-337}}
 
 \date{\vcsDate}
-\author{Tatiana Acero-Cuellar, Federica Bettina Bianco, Eric C. Bellm}
+\author{Tatiana Acero-Cuellar, Federica B. Bianco, Eric C. Bellm}
 
 % Optional: name of the document's curator
 % \setDocCurator{The Curator of this Document}
@@ -70,19 +70,33 @@ Additionally, DMTN-102 ``is a requirement that the Data Management System be cap
 
 To help meet these requirements, we developed a light Convolutional Neural Network that takes as input the postage stamps: template, science, and difference, outputs of the Difference Image Analysis Pipeline, and returns the reliability score (Real/Bogus score), a number between 0 and 1. This is a supervised machine learning model, where the labels for each triplet of postage stamps are either Real or Bogus. The labels are gathered with a combination of fake injection, labels obtained by analyzing the classification given by volunteers, and also by Rubin Observatory members at a Zooniverse citizen science project called Rubin Difference Detectives. This note reports the performance of that classifier.
 
-The set of weights that generate the reliability score has been updated three times; for each update, the model architecture remains the same, but a different dataset was used. Each version of the reliability model is detailed in \autoref{tab:model_version}.
+The set of weights that generate the reliability score has been updated three times; for each update, the model architecture remains the same, but a different dataset was used. Each version of the reliability model is detailed in \autoref{tab:model_version}, \autoref{tab:model_version_cont}.
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \begin{table}[htb!]
     \centering
-    \begin{tabular}{|p{3cm}|p{5cm}|p{2cm}|p{3cm}|p{3cm}|c|}
+    \begin{tabular}{|C{3cm}|C{5.3cm}|C{5.5cm}|}
     \hline
-        \textbf{Model version number} & \textbf{Butler collection name}&\textbf{AP deployment date} & \textbf{AP reliability cutoff}&\textbf{DRP usage} \\ \hline
-        0.1 &tac\_cnn\_comcam\_2025-02-18&&0.1&DP1 model \\ \hline
-        0.2 &tac\_cnn\_lsstcam\_2026-02-13&&0.1 (before Feb 24, 2026) 0.5 (after Feb 24, 2026)& \\\hline
-        0.3 &	
-tac\_cnn\_lsstcam\_2026-02-26&&0.5&DP2 model \\ \hline
+        \textbf{Model version number} & \textbf{Butler collection name}&\textbf{Training inputs}  \\ \hline
+        0.1 &tac\_cnn\_comcam\_2025-02-18&DC2 + Comcam + injections\\ \hline
+        0.2 &tac\_cnn\_lsstcam\_2026-02-13&(DC2 + Comcam + injections) + zooniverse \\\hline
+0.3&tac\_cnn\_lsstcam\_2026-02-26&(DC2 + Comcam + injections) + zooniverse + Comcam + injections \\ \hline
     \end{tabular}
-    \caption{Model version}
+    \caption{Model version. The model 0.1 represents the base model, version 0.2 and 0.3 were obtained by fine-tuning the base model. The training inputs in parentheses are data used to train the base model, but were not directly used to fine-tune the respective model.}
     \label{tab:model_version}
+\end{table}
+
+\begin{table}[htb!]
+    \centering
+    \begin{tabular}{|C{3cm}|C{3cm}|C{5cm}|C{2cm}|}
+    \hline
+        \textbf{Model version number} & \textbf{AP deployment date} & \textbf{AP reliability cutoff}&\textbf{DRP usage} \\ \hline
+        0.1 &from September 2025&0.1&DP1 model \\ \hline
+        0.2 &18 February 2026&0.1 (before Feb 24, 2026) 0.5 (after Feb 24, 2026)& \\\hline
+        0.3&March 2026&0.5&DP2 model \\ \hline
+    \end{tabular}
+    \caption{Model version continuation}
+    \label{tab:model_version_cont}
 \end{table}
 
 \section{Description of the Machine Learning model for reliability score}\label{sec:ml-model}

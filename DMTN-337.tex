@@ -50,6 +50,7 @@ This document summarizes the status of the Machine Learning Reliability model (a
 % See LPM-51 for version number policy.
 \setDocChangeRecord{%
   \addtohist{1}{2026-05-07}{Initial Release.}{Acero-Cuellar}
+  \addtohist{2}{2026-07-09}{v0.3 deployment}{Bellm}
 }
 
 
@@ -105,9 +106,9 @@ The set of model weights that generates the reliability score has been updated t
         \textbf{Model version number} & \textbf{AP deployment date} & \textbf{AP reliability cutoff}&\textbf{DRP usage} \\ \hline
         0.1 &September 2025&0.1&DP1 model \\ \hline
         0.2 &18 February 2026&0.1 (before Feb 24, 2026) 0.5 (after Feb 24, 2026)& \\\hline
-        0.3&&0.5&DP2 model \\ \hline
+        0.3& 9 July 2026 &0.5&DP2 model \\ \hline
     \end{tabular}
-    \caption{Model version cont.ed. The AP reliability cutoff is implemented to mitigate the impact on APDB when generating alerts. The AP and DRP pipelines worked independently; each one can use a different model version. \V2 was used for the initial alerts, and as of April 2026, it is still the model used for the alerts.}
+	\caption{Model version continued. The AP reliability cutoff is implemented to mitigate the impact on APDB when generating alerts. The AP and DRP pipelines worked independently; each one can use a different model version. \V2 was used for initial public alerts. The \V1 model was used during broker integration tests; these alerts can be distinguished by their date range.  Starting around the \V3 deployment date, an explicit \texttt{reliabilityVersion} field in \texttt{DiaSource} records indicates the model used.}
     \label{tab:model_version_cont}
 \end{table}
 

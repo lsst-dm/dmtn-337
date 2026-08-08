@@ -42,6 +42,8 @@
 
 \setDocAbstract{%
 This document summarizes the status of the Machine Learning Reliability model (also known as "\texttt{Real}/\texttt{Bogus}") for the LSST alerts stream. The model associates to each Difference Image Analysis (DIA) detection a $\rel\ [0-1]$ score designed to measure the likelihood of the veracity of the detection, \emph{i.e.}, astrophysical source (1) \emph{vs} artifact (0). This manuscript documents the architecture and performance of each model version, including specific performance characteristics, identified weaknesses and failure modes, mitigation strategies, and details of the training set.
+
+The document defines the model versioning scheme for present and future reference and recaps all existing model versions, including the models used for DP1, DP2, and the initial set of nightly alerts. It describes the data used for each version, including how the labels obtained from the initial release of the Zooniverse Citizen Science Project 'Rubin Difference Detectives' were analyzed and used. The document also defines the reliability cutoff currently applied to all alerts, and presents how each model version behaves on fake injections and a random subset of recent LSSTCam detections.
 }
 
 % Change history defined here.
